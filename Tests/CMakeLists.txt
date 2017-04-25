@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 2.8.11)
+project("CS420Project1-Tests")
+
+
+set(EXACT_FOLDER_TEST Exact)
+set(STRESS_FOLDER_TEST Stress)
+
+
+add_subdirectory(Exact)
