@@ -11,6 +11,7 @@
 #include "Platform/Types.hpp"
 #include "Platform/Platform.hpp"
 
+#include <functional>
 
 namespace pai {
 
@@ -30,7 +31,9 @@ class Puzzle;
 //  h(n) = 0 if n is the goal
 //  h(n) could be general or problem specific.
 //
-// 
+// We can of course go the more functional route, and use
+// anonymous functions, or function pointers, but we should
+// also make it more object oriented by approach, for readability.
 class Heuristic {
 public:
   virtual ~Heuristic() { }

@@ -49,6 +49,8 @@ enum Action {
 // for performance.
 class Puzzle {
 public:
+  // Interpret our action as a verbal string.
+  static std::string Interpret(Action action);
 
   // Standard puzzle solving.
   explicit Puzzle()

@@ -223,4 +223,17 @@ bool Puzzle::operator!=(const Puzzle &other) const
 {
   return equal(other) == false;
 }
+
+
+std::string Puzzle::Interpret(Action action)
+{
+  switch (action) {
+    case ACTION_DOWN:   return "Down";
+    case ACTION_LEFT:   return "Left";
+    case ACTION_RIGHT:  return "Right";
+    case ACTION_UP:     return "Up";
+    case ACTION_NONE:
+    default:            return "none";
+  };
+}
 } // pai

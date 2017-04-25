@@ -68,7 +68,7 @@ int main(int c, char *argv[])
     pai::Puzzle *p = solved_path[j];
     puzzle_board = p->get_puzzle();
     std::cout << "step: " << i << "\n";
-    std::cout << "action taken: " << p->get_last_action() << "\n";
+    std::cout << "action taken: " << pai::Puzzle::Interpret(p->get_last_action()) << "\n";
     for (pai::uint32 i = 0; i < puzzle_board.size(); ++i) {
       if (i % 3 == 0) {
         std::cout << "\n";
