@@ -51,7 +51,7 @@ public:
   { }
 
   // Solve the puzzle. this function takes in a puzzle that needs 
-  // to be solved.
+  // to be solved. This is performed using A* Search.
   bool Solve(const Puzzle &puzzle);
 
   // Get the current heuristic that is registered to this 

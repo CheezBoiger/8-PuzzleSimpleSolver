@@ -13,3 +13,7 @@ add_executable(ExactTest
 
 
 target_link_libraries(ExactTest PuzzleEngine)
+
+install(TARGETS ExactTest
+  RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/Bin
+)

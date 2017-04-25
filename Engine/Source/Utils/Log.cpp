@@ -7,8 +7,17 @@
 // Copyright (c) 2017 Mario Garcia, MIT License.
 // Built with my cat Tom. mew...
 
+#include "Utils/Log.hpp"
+#include "Error.hpp"
 
-int main(int c, char *arv[])
+
+namespace pai {
+
+
+std::string LastError()
 {
-  return 0;
+  std::string err = last_error.error;
+  last_error = Error();
+  return err;
 }
+} // pai

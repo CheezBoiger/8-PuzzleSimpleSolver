@@ -18,9 +18,13 @@
 namespace pai {
 
 // definitions to define our types in the state node.
+// This particular data type describes our cost of travering
+// a state node.
 typedef uint32 cost_t;
 
-// definition of the node id data type.
+// definition of the node id data type. This is used to reference 
+// allocated state nodes by id, rather than simply address, which can prove
+// fatal.
 typedef uint64 node_uid_t;
 
 // State node that defines the current state of the puzzle that
