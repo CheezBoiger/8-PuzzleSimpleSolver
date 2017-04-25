@@ -69,7 +69,7 @@ public:
   // the solving of the input puzzle. The path returned is in the 
   // reversed order, so be sure to read from back to front to get 
   // the steps from beginning to end.
-  std::vector<Puzzle *> GetSolvedPath() const;
+  std::vector<Puzzle> GetSolvedPath() const;
 
   // Get the time it took to solve the puzzle, in milliseconds.
   // This time will be modified once the puzzle given to this

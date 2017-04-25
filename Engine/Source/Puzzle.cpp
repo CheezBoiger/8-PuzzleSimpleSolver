@@ -233,7 +233,7 @@ std::string Puzzle::Interpret(Action action)
     case ACTION_RIGHT:  return "Right";
     case ACTION_UP:     return "Up";
     case ACTION_NONE:
-    default:            return "none";
+    default:            return "None";
   };
 }
 } // pai

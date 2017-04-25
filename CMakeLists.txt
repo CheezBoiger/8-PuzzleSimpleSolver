@@ -8,7 +8,9 @@ endif()
 set(AUTHOR        "Mario Garcia")
 set(DUE_DATE      "4-30-2017")
 set(PROJECT_NUM   1)
-set(INSTRUCTOR    "Daisy Tang")
+set(INSTRUCTOR    "Dr. Daisy Tang")
+
+option(TEST "" OFF)
 
 
 if (WIN32)

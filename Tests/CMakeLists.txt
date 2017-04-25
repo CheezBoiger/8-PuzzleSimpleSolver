@@ -6,3 +6,4 @@ set(EXACT_FOLDER_TEST Exact)
 set(STRESS_FOLDER_TEST Stress)
 
 
+add_subdirectory(Exact)

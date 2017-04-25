@@ -41,7 +41,7 @@ set(APP_FILES
   ${INPUT_FILES}
   ${UTILITY_FILES}
   ${SHELL_FILES}
-  main.cpp
+  Main.cpp
 )
 
 if (${CMAKE_CXX_COMPILER_ID})

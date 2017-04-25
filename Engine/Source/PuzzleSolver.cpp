@@ -118,13 +118,13 @@ std::vector<Puzzle> PuzzleSolver::GenerateStates(Puzzle &puzzle)
 }
 
 
-std::vector<Puzzle *> PuzzleSolver::GetSolvedPath() const
+std::vector<Puzzle> PuzzleSolver::GetSolvedPath() const
 {
-  std::vector<Puzzle *> puzzles;
+  std::vector<Puzzle> puzzles;
   if (path_child) {
     StateNode *trav = path_child;
     while (trav) {
-      puzzles.push_back(&trav->get_puzzle_state());
+      puzzles.push_back(trav->get_puzzle_state());
       trav = trav->get_parent();
     }
   }

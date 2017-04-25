@@ -14,5 +14,18 @@ namespace cs420 {
 
 
 class Console : public Interface {
+public:
+  void Display() override;
+
+  void DigestInput() override;
+  
+  bool is_running() override {
+    return running;
+  }
+
+  void RequestShutDown() override;
+
+private:
+  bool running;
 };
 } // cs420

@@ -15,7 +15,7 @@ class Interface {
  virtual ~Interface() { }
 
   virtual void Display() = 0;
-  virtual void Input() = 0;
+  virtual void DigestInput() = 0;
 
   virtual bool is_running() = 0;
   virtual void RequestShutDown() = 0;
