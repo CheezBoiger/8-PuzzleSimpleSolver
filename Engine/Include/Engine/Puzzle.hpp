@@ -20,7 +20,7 @@
 namespace pai {
 
 
-// Puzzle data type. Uses an unsigned 32 byte to represent
+// Puzzle data type. Uses an unsigned 32 bit to represent
 // the pieces in the puzzle.
 typedef uint32 puzzle_t;
 
