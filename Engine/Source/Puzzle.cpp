@@ -14,6 +14,9 @@
 #include <algorithm>
 #include <utility>
 
+#define BOOKKEEPING_INI(x) { \
+  (x), (x), (x), (x), (x), (x), (x), (x), (x), (x), }
+
 
 namespace pai {
 
@@ -28,18 +31,7 @@ bool Puzzle::Digest(std::string str)
     StateError(ERROR_DIGESTION, "Size does not equal 9.");
     return false;
   }
-  puzzle_t p[10] = { 
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)() 
-  };
+  puzzle_t p[10] = BOOKKEEPING_INI((std::numeric_limits<uint32>::max)());
 
   for (uint32 i = 0; i < str.size(); ++i) {
     char c = str[i];
@@ -84,18 +76,7 @@ bool Puzzle::Digest(uint32 size, puzzle_t *puzzle)
     StateError(ERROR_DIGESTION, "Size does not equal 9.");
     return false;
   }
-  puzzle_t p[10] = {
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)(),
-    (std::numeric_limits<uint32>::max)()
-  };
+  puzzle_t p[10] = BOOKKEEPING_INI((std::numeric_limits<uint32>::max)());
   for (uint32 i = 0; i < size; ++i) {
     if (puzzle[i] == 0 && p[i] == (std::numeric_limits<uint32>::max)()) {
       cursor = i;
