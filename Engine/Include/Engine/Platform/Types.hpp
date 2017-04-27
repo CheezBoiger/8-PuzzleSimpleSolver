@@ -11,6 +11,12 @@
 #include <cstdint>
 
 namespace pai {
+// Simple Type defines for our library. We use these throughout the 
+// Engine public and private source code. Readability is key when figuring
+// out how optimal, and proficient, our library is going to be. This also 
+// reduces the headaches of unknown precision when it comes to cross
+// compatibility of data types that are specified differently on other
+// compilers. 
 
 
 typedef float         real32;

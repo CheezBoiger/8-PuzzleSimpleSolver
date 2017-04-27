@@ -33,13 +33,13 @@ struct Error {
   std::string verbose;
   ErrorType type;
 
-  Error()
-    : error("")
-    , verbose("")
-    , type(ERROR_NONE)
+  Error(std::string str = "", std::string verbose = "", ErrorType type = ERROR_NONE)
+    : error(str)
+    , verbose(verbose)
+    , type(type)
   { }
 };
 
-// Error that holds the last, logged message in this engine.
-static Error last_error;
+const Error &GetLastError();
+void StateError(ErrorType type, std::string str, std::string verbose = "");
 } // pai

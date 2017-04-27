@@ -13,6 +13,7 @@
 #include "Utils/Assertion.hpp"
 #include "Frontier/Frontier.hpp"
 #include "StateTree.hpp"
+#include "Utils/Error.hpp"
 
 #include <chrono>
 
@@ -33,8 +34,9 @@ StateNode *path_child = nullptr;
 // A* Algorithm. As optimal as possible.
 bool PuzzleSolver::Solve(const Puzzle &puzzle)
 {
-  if (unlikely(is_solvable(puzzle))) {
+  if (unlikely(!is_solvable(puzzle))) {
     PAI_PRINT("Puzzle is not solvable! Aborting...");
+    StateError(ERROR_CALIBRATION, "Unsolvable puzzle");
     return false;
   }
   // Clear the tree first before solving.

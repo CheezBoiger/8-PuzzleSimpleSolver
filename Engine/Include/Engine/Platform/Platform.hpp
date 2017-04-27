@@ -18,7 +18,7 @@
 #define PAI_LINUX     1
 #define PAI_APPLE     2
 
-#define unlikely(expr) !expr
+#define unlikely(expr) (expr)
 
 #if defined(_WIN32)
  #define PAI_TARGET_OS PAI_WINDOWS

@@ -8,6 +8,7 @@
 // Built with my cat Tom. mew...
 #include "Puzzle.hpp"
 #include "Utils/Log.hpp"
+#include "Utils/Error.hpp"
 
 #include <cctype>
 #include <algorithm>
@@ -24,6 +25,7 @@ bool Puzzle::Digest(std::string str)
   if (str.size() != 9) {
     PAI_PRINT("Size does not equal 9! => " << str.size() <<
       ".\nCan not print");
+    StateError(ERROR_DIGESTION, "Size does not equal 9.");
     return false;
   }
   puzzle_t p[10] = { 
@@ -43,6 +45,7 @@ bool Puzzle::Digest(std::string str)
     char c = str[i];
     if (!std::isdigit((int)c)) {
       PAI_PRINT("Not a qualified digit!");
+      StateError(ERROR_DIGESTION, "Unqualified digit => " + std::to_string(c));
       return false;
     }
     puzzle_t n = static_cast<puzzle_t>(c - '0');
@@ -53,16 +56,19 @@ bool Puzzle::Digest(std::string str)
       p[n] = n;
     } else {
       PAI_PRINT("Redefinition of two puzzle pieces! Aborting...");
+      StateError(ERROR_DIGESTION, "Redifinition of two puzzle pieces!");
       return false;
     }
     m_puzzle[i] = n;
   }
   if (cursor == (std::numeric_limits<uint32>::max)()) {
     PAI_PRINT("Cursor 0 is missing from puzzle! Aborting...");
+    StateError(ERROR_DIGESTION, "Cursor 0 is missing from puzzle!");
     return false;
   }
   if (p[9] != (std::numeric_limits<uint32>::max)()) {
     PAI_PRINT("the number 9 should not be in this puzzle! Aborting...");
+    StateError(ERROR_DIGESTION, "Number 9 should not be present in puzzle.");
     return false;
   }
   CheckIfPuzzleSolved();
@@ -75,6 +81,7 @@ bool Puzzle::Digest(uint32 size, puzzle_t *puzzle)
   if (size != 9) {
     PAI_PRINT("Size does not equal 9! => " << size <<
     ".\nCan not print");
+    StateError(ERROR_DIGESTION, "Size does not equal 9.");
     return false;
   }
   puzzle_t p[10] = {
@@ -96,16 +103,19 @@ bool Puzzle::Digest(uint32 size, puzzle_t *puzzle)
       p[puzzle[i]] = puzzle[i];
     } else {
       PAI_PRINT("Redefinition of two puzzle pieces! Aborting...");
+      StateError(ERROR_DIGESTION, "Redifinition of two puzzle pieces!");
       return false;
     }
     m_puzzle[i] = puzzle[i];
   }
   if (cursor == (std::numeric_limits<uint32>::max)()) {
     PAI_PRINT("Cursor 0 is missing from puzzle! Aborting...");
+    StateError(ERROR_DIGESTION, "Cursor 0 is missing from puzzle!");
     return false;
   }
   if (p[9] != (std::numeric_limits<uint32>::max)()) {
     PAI_PRINT("the number 9 should not be in this puzzle! Aborting...");
+    StateError(ERROR_DIGESTION, "Number 9 should not be present in puzzle.");
     return false;
   }
   CheckIfPuzzleSolved();

@@ -16,8 +16,9 @@ namespace pai {
 
 std::string LastError()
 {
-  std::string err = last_error.error;
-  last_error = Error();
+  std::string err = GetLastError().error;
+  // Clear last error.
+  StateError(ERROR_NONE, "");
   return err;
 }
 } // pai
