@@ -22,11 +22,23 @@ bool Puzzle::Digest(std::string str)
   str.erase(std::remove_if(str.begin(), str.end(), std::isspace), 
     str.end());
   if (str.size() != 9) {
-    PAI_PRINT("Size does not equal 8! => " << str.size() <<
+    PAI_PRINT("Size does not equal 9! => " << str.size() <<
       ".\nCan not print");
     return false;
   }
-  puzzle_t p[9] = { (std::numeric_limits<uint32>::max)() };
+  puzzle_t p[10] = { 
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)() 
+  };
+
   for (uint32 i = 0; i < str.size(); ++i) {
     char c = str[i];
     if (!std::isdigit((int)c)) {
@@ -34,8 +46,9 @@ bool Puzzle::Digest(std::string str)
       return false;
     }
     puzzle_t n = static_cast<puzzle_t>(c - '0');
-    if (n == 0 && cursor == (std::numeric_limits<uint32>::max)()) {
+    if (n == 0 && p[n] != n && cursor == (std::numeric_limits<uint32>::max)()) {
       cursor = i;
+      p[n] = n;
     } else if (n != p[i]) {
       p[n] = n;
     } else {
@@ -43,6 +56,14 @@ bool Puzzle::Digest(std::string str)
       return false;
     }
     m_puzzle[i] = n;
+  }
+  if (cursor == (std::numeric_limits<uint32>::max)()) {
+    PAI_PRINT("Cursor 0 is missing from puzzle! Aborting...");
+    return false;
+  }
+  if (p[9] != (std::numeric_limits<uint32>::max)()) {
+    PAI_PRINT("the number 9 should not be in this puzzle! Aborting...");
+    return false;
   }
   CheckIfPuzzleSolved();
   return true;
@@ -52,11 +73,22 @@ bool Puzzle::Digest(std::string str)
 bool Puzzle::Digest(uint32 size, puzzle_t *puzzle)
 {
   if (size != 9) {
-    PAI_PRINT("Size does not equal 8! => " << size <<
+    PAI_PRINT("Size does not equal 9! => " << size <<
     ".\nCan not print");
     return false;
   }
-  puzzle_t p[9] = { (std::numeric_limits<uint32>::max)() };
+  puzzle_t p[10] = {
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)(),
+    (std::numeric_limits<uint32>::max)()
+  };
   for (uint32 i = 0; i < size; ++i) {
     if (puzzle[i] == 0 && p[i] == (std::numeric_limits<uint32>::max)()) {
       cursor = i;
@@ -67,6 +99,14 @@ bool Puzzle::Digest(uint32 size, puzzle_t *puzzle)
       return false;
     }
     m_puzzle[i] = puzzle[i];
+  }
+  if (cursor == (std::numeric_limits<uint32>::max)()) {
+    PAI_PRINT("Cursor 0 is missing from puzzle! Aborting...");
+    return false;
+  }
+  if (p[9] != (std::numeric_limits<uint32>::max)()) {
+    PAI_PRINT("the number 9 should not be in this puzzle! Aborting...");
+    return false;
   }
   CheckIfPuzzleSolved();
   return true;

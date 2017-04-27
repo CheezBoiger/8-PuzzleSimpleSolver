@@ -18,7 +18,7 @@
 #include <sstream>
 #include <iterator>
 #include <algorithm>
-
+#include <vector>
 #include <thread>
 #include <chrono>
 #include <mutex>
@@ -33,6 +33,10 @@ namespace cs420 {
 pai::ManhattanDistanceHeuristic mdh;
 pai::MisplacedTilesHeuristic mth;
 pai::PuzzleSolver solver;
+bool both_heuristics = true;
+
+
+std::vector<pai::Puzzle> last_path;
 
 
 // String display handler. This is a struct that is sent into the 
@@ -96,6 +100,7 @@ std::string Trim(std::string &str)
 
 bool InitOutput()
 {
+  solver.set_heuristic(mdh);
   standard_output.running = true;
   standard_output.handle = std::thread(StandardHandleOutput);
   return true;
@@ -145,13 +150,81 @@ void Console::Input(std::string cmd)
       RequestShutDown();
     }
     else if (tokens[0].compare("help") == 0) {
+      SubmitToOutput(R"(
+  Commands:
+    solve [file] or [custom] := Solves an 8 puzzle, provided with furthur instructions. 
 
-    }
-    else if (tokens[0].compare("solve") == 0) {
-      SubmitToOutput("Enter ");
+    heuristic [i]            := Allows you to change the heuristic of this puzzle with integer i.
+                                By default, set to solve with both heuristics. 
+                              ex.   heuristic 1 (use Manhattan Distance Heuristic).
+                                    heuristic 2 (use Misplaced Tiles Heuristic).
+                                    heuristic both (display both heuristics when solving).
+
+    show              := Shows how the last puzzle was solved.
+
+    dump              := Dump all solved puzzle cases held by this program.
+
+    clear             := Clear puzzle cases from this program. This is done autonomously.
+
+    help *[command]   := Shows commands or (optional) a command in more detail.
+
+    exit              := exit this program. This can be entered at any point in the program.
+)");
+    } else if(tokens[0].compare("show") == 0) {
+      uint32_t i = 0;
+      for (pai::int32 j = static_cast<pai::int32>(last_path.size() - 1); j >= 0; --j) {
+        pai::Puzzle &p = last_path[j];
+        auto &puzzle_board = p.get_puzzle();
+        std::cout << "step: " << i << "\n";
+        std::cout << "action taken: " << pai::Puzzle::Interpret(p.get_last_action()) << "\n";
+        for (pai::uint32 i = 0; i < puzzle_board.size(); ++i) {
+          if (i % 3 == 0) {
+            std::cout << "\n";
+          }
+          std::cout << puzzle_board[i] << " ";
+        }
+        ++i;
+        std::cout << "\n\n";
+      }
+    } else if (tokens[0].compare("solve") == 0) {
+      SubmitToOutput("Enter puzzle of format x x x x x x x x\n");
+      SubmitToOutput("(you don't need to have spaces between)\n");
+      SubmitToOutput("enter> ");
       cmd = GetInput();
       pai::Puzzle puzzle;
-      puzzle.Digest(cmd);
+      auto &p = puzzle.get_puzzle();
+      if (puzzle.Digest(cmd)) {
+        std::cout << "Puzzle To Solve: \n";
+        for (uint32_t i = 0; i < p.size(); ++i) {
+          if (i % 3 == 0) {
+            std::cout << "\n";
+          }
+          std::cout << p[i] << " ";
+        }
+        std::cout << "\n\n";
+        std::cout << "Solving...\n";
+        bool success = solver.Solve(puzzle);
+        if (success) {
+          auto path = solver.GetSolvedPath();
+          std::cout << "Solved puzzle: \n\n";
+          auto solved = path[0].get_puzzle();
+          for (uint32_t i = 0; i < solved.size(); ++i) {
+            if (i % 3 == 0) {
+              std::cout << "\n";
+            }
+            std::cout << solved[i] << " ";
+          }
+          std::cout << "\n\n";
+          std::cout << "Time took to solve: " << solver.get_time_solved() << " ms\n";
+          std::cout << "Total Solved Depth: " << path.size() - 1 << " nodes\n";
+          std::cout << "Search Cost: " << solver.get_search_cost() << "\n\n";
+          last_path = path;
+        } else {
+          std::cout << "Puzzle could not be solved.!\n";
+        }
+      } else {
+        SubmitToOutput("Incorrect Format or size. type in 8 valid numbers.\n");
+      }
     }
   }
   SubmitToOutput(cmd);

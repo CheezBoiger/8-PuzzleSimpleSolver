@@ -64,9 +64,6 @@ int main(int c, char *argv[])
     std::cout << puzzle_board[i] << " ";
   }
   std::cout << "\n";
-  std::cout << "Time took to solve: " << solver.get_time_solved() << " ms\n";
-  std::cout << "Total Solved Depth: " << solved_path.size() - 1 << " nodes\n";
-  std::cout << "Search Cost: " << solver.get_search_cost() << "\n\n";
   pai::uint32 i = 0;
   for (pai::int32 j = static_cast<pai::int32>(solved_path.size() - 1); j >= 0; --j) {
     pai::Puzzle &p = solved_path[j];
@@ -82,6 +79,9 @@ int main(int c, char *argv[])
     ++i;
     std::cout << "\n\n";
   }
+  std::cout << "Time took to solve: " << solver.get_time_solved() << " ms\n";
+  std::cout << "Total Solved Depth: " << solved_path.size() - 1 << " nodes\n";
+  std::cout << "Search Cost: " << solver.get_search_cost() << "\n\n";
   std::cout << "Press Enter to continue...\n";
   std::cin.ignore();
   return 0;

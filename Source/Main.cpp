@@ -39,7 +39,7 @@ int main(int c, char *arv[])
     console.SubmitToOutput("input> ");
     std::string cmd = cs420::GetInput();
     console.Input(cmd);
-    console.SubmitToOutput("\n");
+    console.SubmitToOutput("\n\n");
   }
   cs420::CleanupOutput();
   return 0;
