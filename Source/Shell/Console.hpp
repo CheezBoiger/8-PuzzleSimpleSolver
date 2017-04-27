@@ -12,20 +12,34 @@
 
 namespace cs420 {
 
+bool InitOutput();
+bool CleanupOutput();
 
+
+// The Console display.
 class Console : public Interface {
 public:
-  void Display() override;
+  Console()
+    : running(true)
+  { }
 
-  void DigestInput() override;
+  void Input(std::string cmd) override;
+  void SubmitToOutput(std::string str, uint32_t width = 0) override;
   
   bool is_running() override {
     return running;
   }
 
-  void RequestShutDown() override;
+  void RequestShutDown() override {
+    running = false;
+  }
+
+  void PerformSolving();
 
 private:
   bool running;
 };
+
+
+std::string GetInput();
 } // cs420

@@ -6,3 +6,11 @@
 //
 // Copyright (c) 2017 Mario Garcia, MIT License.
 // Built with <3 
+#include "FileParser.hpp"
+
+
+namespace cs420 {
+
+
+
+} // cs420

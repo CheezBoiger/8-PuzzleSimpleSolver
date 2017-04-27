@@ -8,14 +8,17 @@
 // Built with <3 
 #pragma once
 
+#include <string>
+#include <cstdint>
+
 namespace cs420 {
 
 
 class Interface {
+public:
  virtual ~Interface() { }
-
-  virtual void Display() = 0;
-  virtual void DigestInput() = 0;
+  virtual void Input(std::string cmd) = 0;
+  virtual void SubmitToOutput(std::string str, uint32_t width = 0) = 0;
 
   virtual bool is_running() = 0;
   virtual void RequestShutDown() = 0;

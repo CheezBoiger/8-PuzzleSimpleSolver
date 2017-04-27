@@ -95,14 +95,14 @@ public:
 
   // Digest a string that contains the data of 
   // the 8-puzzle. 
-  void Digest(std::string str);
+  bool Digest(std::string str);
 
   // Digest a puzzle buffer that contains the values of 
   // the 8-puzzle.
-  void Digest(uint32 size, puzzle_t *puzzle);
+  bool Digest(uint32 size, puzzle_t *puzzle);
 
   // Moves specified puzzle array to this puzzle.
-  void Digest(std::array<puzzle_t, 9> &puzzle);
+  bool Digest(std::array<puzzle_t, 9> &puzzle);
 
   // Shifts our cursor piece '0' depending on the specified action, 
   // swapping pieces with the node in the direction. Returns true if the cursor

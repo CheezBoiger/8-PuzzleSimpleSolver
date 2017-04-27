@@ -17,21 +17,21 @@
 namespace pai {
 
 
-void Puzzle::Digest(std::string str)
+bool Puzzle::Digest(std::string str)
 {
   str.erase(std::remove_if(str.begin(), str.end(), std::isspace), 
     str.end());
   if (str.size() != 9) {
     PAI_PRINT("Size does not equal 8! => " << str.size() <<
       ".\nCan not print");
-    return;
+    return false;
   }
   puzzle_t p[9] = { (std::numeric_limits<uint32>::max)() };
   for (uint32 i = 0; i < str.size(); ++i) {
     char c = str[i];
     if (!std::isdigit((int)c)) {
       PAI_PRINT("Not a qualified digit!");
-      return;
+      return false;
     }
     puzzle_t n = static_cast<puzzle_t>(c - '0');
     if (n == 0 && cursor == (std::numeric_limits<uint32>::max)()) {
@@ -40,20 +40,21 @@ void Puzzle::Digest(std::string str)
       p[n] = n;
     } else {
       PAI_PRINT("Redefinition of two puzzle pieces! Aborting...");
-      return;
+      return false;
     }
     m_puzzle[i] = n;
   }
   CheckIfPuzzleSolved();
+  return true;
 }
 
 
-void Puzzle::Digest(uint32 size, puzzle_t *puzzle)
+bool Puzzle::Digest(uint32 size, puzzle_t *puzzle)
 {
   if (size != 9) {
     PAI_PRINT("Size does not equal 8! => " << size <<
     ".\nCan not print");
-    return;
+    return false;
   }
   puzzle_t p[9] = { (std::numeric_limits<uint32>::max)() };
   for (uint32 i = 0; i < size; ++i) {
@@ -63,17 +64,20 @@ void Puzzle::Digest(uint32 size, puzzle_t *puzzle)
       p[puzzle[i]] = puzzle[i];
     } else {
       PAI_PRINT("Redefinition of two puzzle pieces! Aborting...");
-      return;
+      return false;
     }
     m_puzzle[i] = puzzle[i];
   }
   CheckIfPuzzleSolved();
+  return true;
 }
 
 
-void Puzzle::Digest(std::array<puzzle_t, 9> &puzzle)
+bool Puzzle::Digest(std::array<puzzle_t, 9> &puzzle)
 {
   m_puzzle = std::move(puzzle);
+  CheckIfPuzzleSolved();
+  return true;
 }
 
 
