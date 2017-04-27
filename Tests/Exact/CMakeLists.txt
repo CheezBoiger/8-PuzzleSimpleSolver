@@ -12,7 +12,7 @@ add_executable(ExactTest
 )
 
 set_property(TARGET ExactTest PROPERTY CXX_STANDARD 11)
-set_property(TARGET ExactTest PROPERTY CXX_STANDARD_REQUIRED 11)
+set_property(TARGET ExactTest PROPERTY CXX_STANDARD_REQUIRED ON)
 
 
 target_link_libraries(ExactTest PuzzleEngine)

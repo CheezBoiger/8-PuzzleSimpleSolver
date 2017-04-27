@@ -12,7 +12,7 @@ add_executable(LogTest
 )
 
 set_property(TARGET LogTest PROPERTY CXX_STANDARD 11)
-set_property(TARGET LogTest PROPERTY CXX_STANDARD_REQUIRED 11)
+set_property(TARGET LogTest PROPERTY CXX_STANDARD_REQUIRED ON)
 
 
 target_link_libraries(LogTest PuzzleEngine)
