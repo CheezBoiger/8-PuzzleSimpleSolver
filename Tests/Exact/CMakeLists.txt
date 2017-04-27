@@ -11,6 +11,9 @@ add_executable(ExactTest
   Main.cpp
 )
 
+set_property(TARGET ExactTest PROPERTY CXX_STANDARD 11)
+set_property(TARGET ExactTest PROPERTY CXX_STANDARD_REQUIRED 11)
+
 
 target_link_libraries(ExactTest PuzzleEngine)
 
