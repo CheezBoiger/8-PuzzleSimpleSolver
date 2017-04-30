@@ -2,6 +2,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 project("CS420-PuzzleApplication")
 
+find_package(Threads REQUIRED)
 
 set(PUZZLE_APPLICATION "PuzzleApp")
 set(PUZZLE_CASE_DIR    Case)
@@ -11,6 +12,7 @@ set(PUZZLE_SHELL_DIR   Shell)
 
 include_directories(SYSTEM
   ../Engine/Include
+  ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 
@@ -59,6 +61,8 @@ add_executable(${PUZZLE_APPLICATION}
   ${APP_FILES}
 )
 
+# Add our thread library from this Machine.
+target_link_libraries(${PUZZLE_APPLICATION} ${CMAKE_THREAD_LIBS_INIT})
 set_property(TARGET ${PUZZLE_APPLICATION} PROPERTY CXX_STANDARD 11)
 set_property(TARGET ${PUZZLE_APPLICATION} PROPERTY CXX_STANDARD_REQUIRED ON)
 

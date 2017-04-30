@@ -23,7 +23,9 @@ namespace pai {
 
 bool Puzzle::Digest(std::string str)
 {
-  str.erase(std::remove_if(str.begin(), str.end(), std::isspace), 
+
+  str.erase(std::remove_if(str.begin(), str.end(), 
+    [] (char x) { return std::isspace(x); }), 
     str.end());
   if (str.size() != 9) {
     PAI_PRINT("Size does not equal 9! => " << str.size() <<
@@ -107,6 +109,12 @@ bool Puzzle::Digest(uint32 size, puzzle_t *puzzle)
 bool Puzzle::Digest(std::array<puzzle_t, 9> &puzzle)
 {
   m_puzzle = std::move(puzzle);
+  for (uint32_t i = 0; i < m_puzzle.size(); ++i) {
+    if (m_puzzle[i] == 0) {
+      cursor = i;
+      break;
+    }
+  }
   CheckIfPuzzleSolved();
   return true;
 }

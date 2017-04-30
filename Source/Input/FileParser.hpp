@@ -8,9 +8,8 @@
 // Built with <3 
 #pragma once
 
-#include <fstream>
 #include <string>
-#include <forward_list>
+#include <list>
 
 
 namespace cs420 {
@@ -23,13 +22,23 @@ class FileParser {
 public:
   FileParser();
 
-  bool Open(std::string filepath);
-  bool Parse();
+  bool Parse(std::string &filepath);
   std::string Next();
 
-  bool Close();
+  bool is_empty() const {
+    return text.empty();
+  }
+
+  int get_curr_percentage_done() const {
+    return percentage_done;
+  }
+
+  int get_curr_size() const {
+    return static_cast<int>(text.size());
+  }
 
 private:
-  std::fstream file;
+  int percentage_done;
+  std::list<std::string> text;
 };
 } // cs420

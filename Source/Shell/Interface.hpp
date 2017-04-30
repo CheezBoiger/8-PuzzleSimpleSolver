@@ -14,9 +14,9 @@
 namespace cs420 {
 
 
-class Interface {
+class Terminal {
 public:
- virtual ~Interface() { }
+ virtual ~Terminal() { }
   virtual void Input(std::string cmd) = 0;
   virtual void SubmitToOutput(std::string str, uint32_t width = 0) = 0;
 
